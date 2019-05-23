@@ -50,4 +50,9 @@ else
 
   echo ${add_license[@]} >>LICENSE
 
+  # Git
+  git init
+  git add LICENSE
+  git commit -m "Add license" 
+
 fi
