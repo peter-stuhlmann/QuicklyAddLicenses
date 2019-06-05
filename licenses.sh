@@ -6,7 +6,9 @@ echo $ABSOLUTE_PATH
 # colors
 CYAN='\033[0;36m'
 GREEN='\033[0;32m'
-COLORRESET='\033[0m' 
+COLORRESET='\033[0m'
+
+URL="https://licenses.peter-stuhlmann.now.sh"
 
 shopt -s extglob
 
@@ -17,41 +19,44 @@ syntax_note() {
   ${CYAN}license ${GREEN}-<type-of-license> ${COLORRESET}\n"
 }
 
-if [[ $# -lt 1 ]]; then
+wget --spider --quiet $URL
+if [ "$?" != 0 ]; then
+  printf "${CYAN}Please check your ${GREEN}internet connection ${CYAN}or try it later again!${COLORRESET}\n"
+elif [[ $# -lt 1 ]]; then
   syntax_note
 else
   for i in $@; do
     case $i in   
     # Apache License 2.0
-    -APC2.0) add_license+=('') ;;  
+    -APC2.0) add_license+=("${URL}/apache-2.0.txt") ;;  
     # BSD 2-Clause "Simplified" License
-    -BSD2) add_license+=('BSD 2-Clause License\n\nCopyright (c) [year], [fullname]\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.') ;; 
+    -BSD2) add_license+=("${URL}/bsd-2-clause.txt") ;; 
     # BSD 3-Clause "New" or "Revised" License
-    -BSD3) add_license+=('BSD 3-Clause License\n\nCopyright (c) [year], [fullname]\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its\n   contributors may be used to endorse or promote products derived from\n   this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\nAND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\nIMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.') ;; 
+    -BSD3) add_license+=("${URL}/bsd-3-clause.txt") ;; 
     # Eclipse Public License 2.0
-    -ECL) add_license+=('') ;; 
+    -ECL) add_license+=("${URL}/epl-2.0.txt") ;; 
     # GNU Affero General Public License v3.0
-    -GNUA3.0) add_license+=('') ;; 
+    -AGPL3.0) add_license+=("${URL}/agpl-3.0.txt") ;; 
     # GNU General Public License v2.0
-    -GNU2.0) add_license+=('') ;; 
+    -GPL2.0) add_license+=("${URL}/gpl-2.0.txt") ;; 
     # GNU General Public License v3.0
-    -GNU3.0) add_license+=('') ;;
+    -GPL3.0) add_license+=("${URL}/gpl-3.0.txt") ;;
     # GNU Lesser General Public License v2.1
-    -GNUL2.1) add_license+=('') ;; 
+    -LGPL2.1) add_license+=("${URL}/lgpl-2.1.txt") ;; 
     # GNU Lesser General Public License v3.0
-    -GNUL3.0) add_license+=('') ;; 
+    -LGPL3.0) add_license+=("${URL}/lgpl-3.0.txt") ;; 
     # MIT License
-    -MIT) add_license+=('MIT License\n\nCopyright (c) [year] [fullname]\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.') ;;
+    -MIT) add_license+=("${URL}/mit.txt") ;;
     # Mozilla Public License 2.0
-    -MOZ) add_license+=('') ;; 
+    -MOZ) add_license+=("${URL}/mpl-2.0.txt") ;;
     # The Unlicense
-    -UNL) add_license+=('This is free and unencumbered software released into the public domain.\n\nAnyone is free to copy, modify, publish, use, compile, sell, or\ndistribute this software, either in source code form or as a compiled\nbinary, for any purpose, commercial or non-commercial, and by any\nmeans.\n\nIn jurisdictions that recognize copyright laws, the author or authors\nof this software dedicate any and all copyright interest in the\nsoftware to the public domain. We make this dedication for the benefit\nof the public at large and to the detriment of our heirs and\nsuccessors. We intend this dedication to be an overt act of\nrelinquishment in perpetuity of all present and future rights to this\nsoftware under copyright law.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR\nOTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\nOTHER DEALINGS IN THE SOFTWARE.\n\nFor more information, please refer to <http://unlicense.org>') ;
+    -UNL) add_license+=("${URL}/unlicense.txt") ;
     esac
   done
 
   touch LICENSE
 
-  echo -e ${add_license[@]} >>LICENSE
+  curl ${add_license[@]} >LICENSE
 
   # Git
   git init
