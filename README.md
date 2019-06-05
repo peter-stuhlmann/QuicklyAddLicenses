@@ -47,7 +47,8 @@ Recommendation:
 2. Edit your .bashrc (in home directory) and add an alias to start the script:   
     ```alias license='<ABSOLUTE PATH>/license.sh'```
 
-Now you can use this script in every directory.
+Now you can use this script in every directory.  
+**Please make sure you have an internet connection.**
 
 ---
 
