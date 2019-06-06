@@ -1,7 +1,9 @@
 #!/bin/bash
 
+NAME="Max Mustermann"
+YEAR=`date +%Y`
+
 ABSOLUTE_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo $ABSOLUTE_PATH
 
 # colors
 CYAN='\033[0;36m'
@@ -57,6 +59,9 @@ else
   touch LICENSE
 
   curl ${add_license[@]} >LICENSE
+
+  sed -i "s/<year>/${YEAR}/g" LICENSE
+  sed -i "s/<name of copyright owner>/${NAME}/g" LICENSE
 
   # Git
   git init
