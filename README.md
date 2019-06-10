@@ -50,6 +50,15 @@ Recommendation:
 Now you can use this script in every directory.  
 **Please make sure you have an internet connection.**
 
+### Permission denied?
+
+Use the following command to grant rights to use the script (once only):
+
+```
+$ chmod +x license.sh
+```
+For this command, either change to the directory where the script is located or specify the appropriate path to the bash script file.
+
 ---
 
 ## License
