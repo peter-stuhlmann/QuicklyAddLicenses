@@ -68,4 +68,6 @@ else
   git add LICENSE
   git commit -m "Add license" 
 
+  printf "${CYAN}Done! The license has been added. ✔️${COLORRESET}\n"
+
 fi
