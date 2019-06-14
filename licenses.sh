@@ -13,9 +13,36 @@ shopt -s extglob
 
 add_license=()
 
+license_already_there() {
+  read -p "There is already a LICENSE file in this directory. Do you want to overwrite this? [Y/n] " REPLY
+}
+
 syntax_note() {
   printf "Please specify the license: 
   ${CYAN}license ${GREEN}-<type-of-license> ${COLORRESET}\n"
+}
+
+create_license() {
+  touch LICENSE
+
+  curl ${add_license[@]} >LICENSE
+
+  YEAR=`date +%Y`
+
+  printf "\n${CYAN}Please enter your name: ${COLORRESET}" 
+  read NAME
+
+  printf "\n" 
+
+  sed -i "s/<year>/$YEAR/g" LICENSE
+  sed -i "s/name of copyright owner/$NAME/g" LICENSE
+
+  # Git
+  git init
+  git add LICENSE
+  git commit -m "Add license" 
+
+  printf "\n${CYAN}Done! The license has been added. ✔️${COLORRESET}\n"
 }
 
 wget --spider --quiet $URL
@@ -53,25 +80,13 @@ else
     esac
   done
 
-  touch LICENSE
-
-  curl ${add_license[@]} >LICENSE
-
-  YEAR=`date +%Y`
-
-  printf "\n${CYAN}Please enter your name: ${COLORRESET}" 
-  read NAME
-
-  printf "\n" 
-
-  sed -i "s/<year>/$YEAR/g" LICENSE
-  sed -i "s/<name of copyright owner>/$NAME/g" LICENSE
-
-  # Git
-  git init
-  git add LICENSE
-  git commit -m "Add license" 
-
-  printf "\n${CYAN}Done! The license has been added. ✔️${COLORRESET}\n"
+  if [ -f "LICENSE" ]; then
+    license_already_there
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      create_license
+    else printf "${CYAN}The process was canceled. Your license has not been updated.${COLORRESET}\n"
+    fi
+  else create_license
+  fi
 
 fi
