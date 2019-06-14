@@ -14,7 +14,7 @@ shopt -s extglob
 add_license=()
 
 license_already_there() {
-  read -p "There is already a LICENSE file in this directory. Do you want to overwrite this? [Y/n] " REPLY
+  read -p "There is already a LICENSE file in this directory. Do you want to overwrite it? [Y/n] " REPLY
 }
 
 syntax_note() {
@@ -35,7 +35,7 @@ create_license() {
   printf "\n" 
 
   sed -i "s/<year>/$YEAR/g" LICENSE
-  sed -i "s/name of copyright owner/$NAME/g" LICENSE
+  sed -i "s/<name of copyright owner>/$NAME/g" LICENSE
 
   # Git
   git init
@@ -47,7 +47,7 @@ create_license() {
 
 wget --spider --quiet $URL
 if [ "$?" != 0 ]; then
-  printf "${CYAN}Please check your ${GREEN}internet connection ${CYAN}or try it later again!${COLORRESET}\n"
+  printf "${CYAN}Please check your ${GREEN}internet connection ${CYAN}or try again later!${COLORRESET}\n"
 elif [[ $# -lt 1 ]]; then
   syntax_note
 else
