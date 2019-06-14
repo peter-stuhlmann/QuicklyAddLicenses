@@ -22,6 +22,11 @@ syntax_note() {
   ${CYAN}license ${GREEN}-<type-of-license> ${COLORRESET}\n"
 }
 
+syntax_note_hyphen() {
+  printf "Please put a hyphen before the license name: 
+  ${CYAN}license ${GREEN}-<type-of-license> ${COLORRESET}\n  e.g. license -MIT\n"
+}
+
 create_license() {
   YEAR=`date +%Y`
 
@@ -50,6 +55,8 @@ if [ "$?" != 0 ]; then
   printf "${CYAN}Please check your ${GREEN}internet connection ${CYAN}or try again later!${COLORRESET}\n"
 elif [[ $# -lt 1 ]]; then
   syntax_note
+elif [[ $# -eq 1 && $1 != -* ]]; then
+  syntax_note_hyphen
 else
   for i in $@; do
     case $i in   
@@ -76,7 +83,7 @@ else
     # Mozilla Public License 2.0
     -MOZ) add_license+=("${URL}/mpl-2.0.txt") ;;
     # The Unlicense
-    -UNL) add_license+=("${URL}/unlicense.txt") ;
+    -UNL) add_license+=("${URL}/unlicense.txt") ;;
     esac
   done
 
