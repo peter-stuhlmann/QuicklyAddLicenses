@@ -1,8 +1,5 @@
 #!/bin/bash
 
-NAME="Max Mustermann"
-YEAR=`date +%Y`
-
 ABSOLUTE_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # colors
@@ -60,14 +57,21 @@ else
 
   curl ${add_license[@]} >LICENSE
 
-  sed -i "s/<year>/${YEAR}/g" LICENSE
-  sed -i "s/<name of copyright owner>/${NAME}/g" LICENSE
+  YEAR=`date +%Y`
+
+  printf "\n${CYAN}Please enter your name: ${COLORRESET}" 
+  read NAME
+
+  printf "\n" 
+
+  sed -i "s/<year>/$YEAR/g" LICENSE
+  sed -i "s/<name of copyright owner>/$NAME/g" LICENSE
 
   # Git
   git init
   git add LICENSE
   git commit -m "Add license" 
 
-  printf "${CYAN}Done! The license has been added. ✔️${COLORRESET}\n"
+  printf "\n${CYAN}Done! The license has been added. ✔️${COLORRESET}\n"
 
 fi
