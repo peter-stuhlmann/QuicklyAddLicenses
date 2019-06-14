@@ -23,16 +23,16 @@ syntax_note() {
 }
 
 create_license() {
-  touch LICENSE
-
-  curl ${add_license[@]} >LICENSE
-
   YEAR=`date +%Y`
 
   printf "\n${CYAN}Please enter your name: ${COLORRESET}" 
   read NAME
 
   printf "\n" 
+
+  touch LICENSE
+
+  curl ${add_license[@]} >LICENSE
 
   sed -i "s/<year>/$YEAR/g" LICENSE
   sed -i "s/<name of copyright owner>/$NAME/g" LICENSE
